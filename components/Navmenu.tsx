@@ -76,9 +76,12 @@ export function Navbar() {
             {IsSearching && Result && (
               <div className="h-8 w-full bg-white border-t border-black text-black flex items-center justify-center">
                 {Result.map((doc) => {
-                  console.log(doc.id);
                   return (
-                    <Link className="text-blue" href={`/themen/${doc.id}`}>
+                    <Link
+                      key={doc.id}
+                      className="text-blue"
+                      href={`/themen/${doc.id}`}
+                    >
                       {doc.name}
                     </Link>
                   );
