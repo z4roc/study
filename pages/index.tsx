@@ -13,10 +13,20 @@ import { firestore } from "@/lib/firebase";
 import { useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Link from "next/link";
-import Navmenu from "@/components/Navmenu";
+import Navmenu, { Navbar } from "@/components/Navmenu";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props: any) {
-  return <main className="">Prüfungsvorbereitung Beta</main>;
+  return (
+    <div className="flex h-screen flex-col">
+      <Navbar />
+      <Toaster />
+      <main className="flex h-full flex-auto w-full">
+        <Navmenu />
+        <div>Content</div>
+      </main>
+    </div>
+  );
 }

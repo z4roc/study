@@ -1,24 +1,85 @@
 import { firestore } from "@/lib/firebase";
-import { collection, query, where } from "firebase/firestore";
+import {
+  DocumentData,
+  collection,
+  endAt,
+  getDocs,
+  orderBy,
+  query,
+  startAt,
+  where,
+} from "firebase/firestore";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 export function Navbar() {
+  const [IsSearching, SetIsSearching] = useState(false);
+
+  const [Result, SetResult] = useState<null | DocumentData[]>(null);
+
+  const [SearchInput, SetSearchInput] = useState<null | string>(null);
+
+  const onSubmit = () => {
+    if (!SearchInput) {
+      SetIsSearching(false);
+      return;
+    }
+    SetIsSearching(true);
+
+    const colRef = collection(firestore, "themen");
+    console.log(SearchInput);
+    const qry = query(colRef, orderBy("name"));
+
+    getDocs(qry).then((docs) => {
+      let results = docs?.docs?.map((doc) => doc.data());
+
+      results = results.filter((result) => result.inhalt.includes(SearchInput));
+
+      SetResult(results);
+    });
+    return false;
+  };
+
+  const onBlur = () => {
+    SetIsSearching(false);
+    SetResult(null);
+  };
+
   return (
-    <div className="fixed h-20 bg-cyan-900 w-screen">
+    <div className="h-20 bg-bg border-b border-black w-full p-0 m-0">
       <div className="flex items-center h-full w-full p-5">
         <Link className="text-3xl text-white font-bold" href="/">
           Prüfungsvorbereitung
         </Link>
-        <form onSubmit={() => console.log("Worked")} className="ml-auto">
-          <input
-            type="text"
-            placeholder="Themen oder Inhalte suchen"
-            className="border-none w-56 p-2 outline-none rounded-md"
-          />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+          className="ml-auto h-10"
+        >
+          <div>
+            <input
+              type="text"
+              onBlur={onBlur}
+              onChange={(e) => SetSearchInput(e.target.value)}
+              placeholder="Themen oder Inhalte suchen"
+              className="border-none w-56 p-2 outline-none text-black"
+            />
+            {IsSearching && Result && (
+              <div className="h-8 w-full bg-white border-t border-black text-black flex items-center justify-center">
+                {Result.map((doc) => (
+                  <div key={doc.id}>
+                    <Link href={`/themen/${doc.id}`}>{doc.name}</Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>
@@ -27,12 +88,17 @@ export function Navbar() {
 
 export default function Navmenu() {
   return (
-    <aside className="fixed w-min z-10 mt-20 bg-cyan-900 h-screen text-white p-5 overflow-x-hidden">
+    <div className="w-min bg-bg border-r border-black h-full min-w-max text-white p-5 overflow-x-hidden">
       <h1 className="text-3xl font-semibold p-2">Themen</h1>
 
       <Accordion title="Abschlussprüfung Teil 1" />
       <Accordion title="Abschlussprüfung Teil 2" />
-    </aside>
+      <div className="mt-auto h-max">
+        <a href="https://zaroc.de" className="">
+          ZAROC
+        </a>
+      </div>
+    </div>
   );
 }
 
@@ -42,7 +108,7 @@ function Accordion({ title, content }: any) {
     <div className="">
       <div
         onClick={() => setIsActive(!isActive)}
-        className="flex text-2xl cursor-pointer p-3 gap-3 hover:bg-slate-900 rounded-xl"
+        className="flex text-2xl cursor-pointer p-3 gap-3 hover:bg-focus rounded-xl"
       >
         <div>{title}</div>
         {!isActive && <FontAwesomeIcon icon={faSortDown} />}
@@ -69,13 +135,19 @@ function Themenbereich({ title, area }: any) {
   );
   const [themen] = useCollection(q);
 
+  const router = useRouter();
+
+  const currentTopic = router.query.thema;
+
+  console.log(currentTopic);
+
   const [isActive, setIsActive] = useState(false);
 
   return (
     <div>
       <div
         onClick={() => setIsActive(!isActive)}
-        className="flex gap-3 text-xl p-3 items-center cursor-pointer hover:bg-slate-900 rounded-xl"
+        className="flex gap-3 text-xl p-3 items-center cursor-pointer hover:bg-focus rounded-xl"
       >
         <div>{title}</div>
         {!isActive && <FontAwesomeIcon icon={faSortDown} />}
@@ -84,12 +156,21 @@ function Themenbereich({ title, area }: any) {
       {isActive &&
         themen?.docs.map((doc) => (
           <div key={doc.id}>
-            <Link
-              href={`/themen/${doc.id}`}
-              className="text-lg p-5 hover:text-gray-400"
-            >
-              {doc.data().name}
-            </Link>
+            {currentTopic == doc?.id ? (
+              <Link
+                href={`/themen/${doc.id}`}
+                className="text-lg p-5 hover:text-white text-text"
+              >
+                {doc.data().name}
+              </Link>
+            ) : (
+              <Link
+                href={`/themen/${doc.id}`}
+                className="text-lg p-5 hover:text-text"
+              >
+                {doc.data().name}
+              </Link>
+            )}
           </div>
         ))}
     </div>
