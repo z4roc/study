@@ -40,11 +40,14 @@ export function Navbar() {
       results = results.filter((result) => result.inhalt.includes(SearchInput));
 
       SetResult(results);
+      console.log(results[0].id);
     });
     return false;
   };
 
-  const onBlur = () => {
+  const onBlur = async () => {
+    await new Promise((r) => setTimeout(r, 200));
+
     SetIsSearching(false);
     SetResult(null);
   };
@@ -65,18 +68,21 @@ export function Navbar() {
           <div>
             <input
               type="text"
-              onBlur={onBlur}
               onChange={(e) => SetSearchInput(e.target.value)}
+              onBlur={onBlur}
               placeholder="Themen oder Inhalte suchen"
               className="border-none w-56 p-2 outline-none text-black"
             />
             {IsSearching && Result && (
               <div className="h-8 w-full bg-white border-t border-black text-black flex items-center justify-center">
-                {Result.map((doc) => (
-                  <div key={doc.id}>
-                    <Link href={`/themen/${doc.id}`}>{doc.name}</Link>
-                  </div>
-                ))}
+                {Result.map((doc) => {
+                  console.log(doc.id);
+                  return (
+                    <Link className="text-blue" href={`/themen/${doc.id}`}>
+                      {doc.name}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </div>
