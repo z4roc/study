@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      maxHeight: {
+        "9/10": "calc(100vh - 8.9vh)",
+      },
       fontFamily: {
         poppins: ['"Poppins"', "sans-serif"],
       },

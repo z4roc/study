@@ -23,15 +23,16 @@ export default function Thema() {
       <Toaster />
       <main className="flex h-full flex-auto w-full">
         <Navmenu />
-        <div className="p-12">
-          <h1>{data?.data()?.name}</h1>
-          <ReactMarkdown
-            rehypePlugins={[rehypeHighlight]}
-            remarkPlugins={[remarkGfm]}
-            className="markdown font-semibold"
-          >
-            {data?.data()?.inhalt}
-          </ReactMarkdown>
+        <div className="flex">
+          <div className="h-min overflow-y-auto">
+            <ReactMarkdown
+              rehypePlugins={[rehypeHighlight]}
+              remarkPlugins={[remarkGfm]}
+              className="flex flex-col p-10 max-h-9/10 markdown font-semibold "
+            >
+              {data?.data()?.inhalt}
+            </ReactMarkdown>
+          </div>
         </div>
       </main>
     </div>
