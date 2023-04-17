@@ -54,8 +54,8 @@ export function Navbar() {
 
   return (
     <div className="h-20 bg-bg border-b border-black w-full p-0 m-0">
-      <div className="flex items-center h-full w-full p-5">
-        <Link className="text-3xl text-white font-bold" href="/">
+      <div className="flex md:items-center h-full w-full p-5">
+        <Link className="md:text-3xl text-xl text-white font-bold" href="/">
           Prüfungsvorbereitung
         </Link>
         <form
@@ -63,7 +63,7 @@ export function Navbar() {
             e.preventDefault();
             onSubmit();
           }}
-          className="ml-auto h-10"
+          className="ml-auto md:h-10 h-5"
         >
           <div>
             <input
@@ -71,7 +71,7 @@ export function Navbar() {
               onChange={(e) => SetSearchInput(e.target.value)}
               onBlur={onBlur}
               placeholder="Themen oder Inhalte suchen"
-              className="border-none w-56 p-2 outline-none text-black"
+              className="border-none md:w-56 w-40 p-2 outline-none text-black"
             />
             {IsSearching && Result && (
               <div className="h-8 w-full bg-white border-t border-black text-black flex items-center justify-center">
@@ -97,7 +97,7 @@ export function Navbar() {
 
 export default function Navmenu() {
   return (
-    <div className="w-min bg-bg border-r border-black h-full min-w-max text-white p-5 overflow-x-hidden">
+    <div className="w-full md:w-min bg-bg md:border-r border-black h-full min-h-1/3 min-w-max text-white p-5 overflow-x-hidden">
       <h1 className="text-3xl font-semibold p-2">Themen</h1>
 
       <Accordion title="Abschlussprüfung Teil 1" />
