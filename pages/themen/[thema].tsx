@@ -23,8 +23,8 @@ export default function Thema() {
       <Toaster />
       <main className="flex h-full flex-auto flex-col md:flex-row w-full">
         <Navmenu />
-        <div className="flex">
-          <div className="h-min overflow-y-auto">
+        <div className="flex w-full">
+          <div className="h-min overflow-y-auto w-full">
             <ReactMarkdown
               rehypePlugins={[rehypeHighlight]}
               remarkPlugins={[remarkGfm]}
