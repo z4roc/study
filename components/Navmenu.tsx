@@ -40,7 +40,6 @@ export function Navbar() {
       results = results.filter((result) => result.inhalt.includes(SearchInput));
 
       SetResult(results);
-      console.log(results[0].id);
     });
     return false;
   };
@@ -58,38 +57,38 @@ export function Navbar() {
         <Link className="md:text-3xl text-xl text-white font-bold" href="/">
           Prüfungsvorbereitung
         </Link>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit();
-          }}
-          className="ml-auto md:h-10 h-5"
-        >
-          <div>
-            <input
-              type="text"
-              onChange={(e) => SetSearchInput(e.target.value)}
-              onBlur={onBlur}
-              placeholder="Themen oder Inhalte suchen"
-              className="border-none md:w-56 w-40 p-2 outline-none text-black"
-            />
-            {IsSearching && Result && (
-              <div className="h-8 w-full bg-white border-t border-black text-black flex items-center justify-center">
-                {Result.map((doc) => {
-                  return (
-                    <Link
-                      key={doc.id}
-                      className="text-blue"
-                      href={`/themen/${doc.id}`}
-                    >
+        <div className="ml-auto md:h-10 h-5">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+            className=""
+          >
+            <div>
+              <input
+                type="text"
+                onChange={(e) => SetSearchInput(e.target.value)}
+                onBlur={onBlur}
+                placeholder="Themen oder Inhalte suchen"
+                className="border-none md:w-56 w-40 p-2 outline-none text-black"
+              />
+            </div>
+          </form>
+          {IsSearching && Result && (
+            <ul className="absolute w-56 p-1 bg-white text-black">
+              {Result.map((doc) => {
+                return (
+                  <li className="border-t-2 p-1">
+                    <Link key={doc.id} className="" href={`/themen/${doc.id}`}>
                       {doc.name}
                     </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </form>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -97,12 +96,14 @@ export function Navbar() {
 
 export default function Navmenu() {
   return (
-    <div className="w-full md:w-min bg-bg md:border-r border-black h-full min-h-1/3 min-w-max text-white p-5 overflow-x-hidden">
-      <h1 className="text-3xl font-semibold p-2">Themen</h1>
+    <div className="w-full md:w-min bg-bg md:border-r flex flex-col border-black h-full min-h-1/3 min-w-max text-white overflow-x-hidden">
+      <h1 className="text-3xl font-semibold p-5">Themen</h1>
+      <div className="overflow-y-auto max-h-3/4 p-5">
+        <Accordion title="Abschlussprüfung Teil 1" />
+        <Accordion title="Abschlussprüfung Teil 2" />
+      </div>
 
-      <Accordion title="Abschlussprüfung Teil 1" />
-      <Accordion title="Abschlussprüfung Teil 2" />
-      <div className="mt-auto h-max">
+      <div className="mt-auto h-max p-5">
         <a href="https://zaroc.de" className="">
           ZAROC
         </a>
@@ -114,7 +115,7 @@ export default function Navmenu() {
 function Accordion({ title, content }: any) {
   const [isActive, setIsActive] = useState(false);
   return (
-    <div className="">
+    <div className="transition-transform ease-in-out">
       <div
         onClick={() => setIsActive(!isActive)}
         className="flex text-2xl cursor-pointer p-3 gap-3 hover:bg-focus rounded-xl"
@@ -164,19 +165,16 @@ function Themenbereich({ title, area }: any) {
 
       {isActive &&
         themen?.docs.map((doc) => (
-          <div key={doc.id}>
+          <div key={doc.id} className="text-lg p-1">
             {currentTopic == doc?.id ? (
               <Link
                 href={`/themen/${doc.id}`}
-                className="text-lg p-5 hover:text-white text-text"
+                className=" hover:text-white text-blue-300"
               >
                 {doc.data().name}
               </Link>
             ) : (
-              <Link
-                href={`/themen/${doc.id}`}
-                className="text-lg p-5 hover:text-text"
-              >
+              <Link href={`/themen/${doc.id}`} className="hover:text-text">
                 {doc.data().name}
               </Link>
             )}

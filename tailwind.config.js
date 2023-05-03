@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       maxHeight: {
         "9/10": "calc(100vh - 8.9vh)",
+        "3/4": "75vh",
       },
       fontFamily: {
         poppins: ['"Poppins"', "sans-serif"],

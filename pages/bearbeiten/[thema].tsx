@@ -13,7 +13,7 @@ export default function Thema() {
   const docRef = doc(firestore, `themen/${thema}`);
   const [data] = useDocument(docRef);
 
-  const erstelleThema = () => {};
+  const erstelleThema = async () => {};
 
   console.log(data?.data()?.inhalt);
 
