@@ -54,7 +54,7 @@ export function Navbar() {
   };
 
   return (
-    <div className="h-20 bg-bglight dark:bg-bg border-b border-lightborder dark:border-black w-full p-0 m-0">
+    <div className="h-20 bg-gradient-to-r from-bglight to-blue-300 dark:from-bg dark:to-slate-800 border-b border-lightborder dark:border-black w-full p-0 m-0">
       <div className="flex md:items-center h-full w-full p-5">
         <Link className="md:text-3xl text-xl text-white font-bold" href="/">
           Prüfungsvorbereitung
@@ -98,7 +98,7 @@ export function Navbar() {
 
 export default function Navmenu() {
   return (
-    <div className="w-full md:w-min bg-bglight dark:bg-bg md:border-r flex flex-col dark:border-black h-full min-h-1/3 min-w-max text-white overflow-x-hidden">
+    <div className="w-full md:w-min  bg-gradient-to-b from-bglight to-blue-300 dark:from-bg dark:to-slate-800 md:border-r flex flex-col dark:border-black h-full min-h-1/3 min-w-max text-white overflow-x-hidden">
       <h1 className="text-3xl font-semibold p-5">Themen</h1>
       <div className="overflow-y-auto max-h-3/4 p-5">
         <Accordion title="Abschlussprüfung Teil 1" />
