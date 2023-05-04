@@ -79,8 +79,8 @@ export function Navbar() {
             <ul className="absolute w-56 p-1 bg-white text-black">
               {Result.map((doc) => {
                 return (
-                  <li className="border-t-2 p-1">
-                    <Link key={doc.id} className="" href={`/themen/${doc.id}`}>
+                  <li key={doc.id} className="border-t-2 p-1">
+                    <Link className="" href={`/themen/${doc.id}`}>
                       {doc.name}
                     </Link>
                   </li>
