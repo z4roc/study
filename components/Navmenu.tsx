@@ -55,8 +55,8 @@ export function Navbar() {
 
   return (
     <div className="h-20 bg-gradient-to-r from-bglight to-blue-300 dark:from-bg dark:to-slate-800 border-b border-lightborder dark:border-black w-full p-0 m-0">
-      <div className="flex md:items-center h-full w-full p-5">
-        <Link className="md:text-3xl text-xl text-white font-bold" href="/">
+      <div className="flex md:items-center h-full w-full p-1 items-center md:p-5">
+        <Link className="md:text-3xl text-lg text-white font-bold" href="/">
           Prüfungsvorbereitung
         </Link>
         <div className="ml-auto md:h-10 h-5">
@@ -72,8 +72,8 @@ export function Navbar() {
                 type="text"
                 onChange={(e) => SetSearchInput(e.target.value)}
                 onBlur={onBlur}
-                placeholder="Themen oder Inhalte suchen"
-                className="border-none md:w-56 w-40 p-2 outline-none text-black"
+                placeholder="Suchen..."
+                className="border-none md:w-56 w-32 h-6 md:h-max p-2 outline-none text-black"
               />
             </div>
           </form>
