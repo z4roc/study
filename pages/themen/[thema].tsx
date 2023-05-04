@@ -18,7 +18,7 @@ export default function Thema() {
   const [data] = useDocument(docRef);
 
   return (
-    <div className="flex h-full md:h-screen flex-col w-full font-poppins bg-content text-white">
+    <div className="flex h-full md:h-screen flex-col w-full font-poppins dark:bg-content dark:text-white">
       <Navbar />
       <Toaster />
       <main className="flex h-full flex-auto flex-col md:flex-row w-full">

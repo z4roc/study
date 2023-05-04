@@ -20,7 +20,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(props: any) {
   return (
-    <div className="flex h-full md:h-screen flex-col w-full font-poppins bg-content text-white">
+    <div className="flex h-full md:h-screen flex-col w-full font-poppins bg-bgcontentlight dark:bg-content dark:text-white">
       <Navbar />
       <Toaster />
       <main className="flex h-full flex-auto flex-col md:flex-row w-full">
@@ -28,7 +28,7 @@ export default function Home(props: any) {
         <div className="flex w-full h-full">
           <div className="h-min overflow-y-auto w-full">
             <div className="flex flex-col max-h-9/10">
-              <div className="bg-content p-10 flex flex-col h-full w-full">
+              <div className="dark:bg-content bg-bgcontentlight p-10 flex flex-col h-full w-full">
                 <h1 className="text-4xl font-bold p-2">💬 Über diese Seite</h1>
                 <p className=" p-2 text-lg">
                   Hier trage ich alle Themen zusammen die für die jeglichen

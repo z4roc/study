@@ -15,6 +15,8 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { useDarkMode } from "@/lib/hooks";
+import { FaSun, FaMoon, FaGithub } from "react-icons/fa";
 
 export function Navbar() {
   const [IsSearching, SetIsSearching] = useState(false);
@@ -52,7 +54,7 @@ export function Navbar() {
   };
 
   return (
-    <div className="h-20 bg-bg border-b border-black w-full p-0 m-0">
+    <div className="h-20 bg-bglight dark:bg-bg border-b border-lightborder dark:border-black w-full p-0 m-0">
       <div className="flex md:items-center h-full w-full p-5">
         <Link className="md:text-3xl text-xl text-white font-bold" href="/">
           Prüfungsvorbereitung
@@ -96,21 +98,46 @@ export function Navbar() {
 
 export default function Navmenu() {
   return (
-    <div className="w-full md:w-min bg-bg md:border-r flex flex-col border-black h-full min-h-1/3 min-w-max text-white overflow-x-hidden">
+    <div className="w-full md:w-min bg-bglight dark:bg-bg md:border-r flex flex-col dark:border-black h-full min-h-1/3 min-w-max text-white overflow-x-hidden">
       <h1 className="text-3xl font-semibold p-5">Themen</h1>
       <div className="overflow-y-auto max-h-3/4 p-5">
         <Accordion title="Abschlussprüfung Teil 1" />
         <Accordion title="Abschlussprüfung Teil 2" />
       </div>
 
-      <div className="mt-auto h-max p-5">
+      <div className="flex mt-auto h-max p-5">
         <a href="https://zaroc.de" className="">
           ZAROC
+        </a>
+        <ThemeIcon />
+        <a href="https://github.com/z4roc/study">
+          <FaGithub size="24" className="ml-4" />
         </a>
       </div>
     </div>
   );
 }
+
+const ThemeIcon = () => {
+  const [darkTheme, setDarkTheme] = useDarkMode();
+  const handleMode = () => setDarkTheme(!darkTheme);
+
+  return (
+    <span onClick={handleMode} className="ml-auto">
+      {darkTheme ? (
+        <FaSun
+          size="24"
+          className="text-gray-50 transition duration-300 ease-in-out cursor-pointer"
+        />
+      ) : (
+        <FaMoon
+          size="24"
+          className="text-gray-50 transition duration-300 ease-in-out cursor-pointer"
+        />
+      )}
+    </span>
+  );
+};
 
 function Accordion({ title, content }: any) {
   const [isActive, setIsActive] = useState(false);
@@ -118,7 +145,7 @@ function Accordion({ title, content }: any) {
     <div className="transition-transform ease-in-out">
       <div
         onClick={() => setIsActive(!isActive)}
-        className="flex text-2xl cursor-pointer p-3 gap-3 hover:bg-focus rounded-xl"
+        className="flex text-2xl cursor-pointer p-3 gap-3 hover:dark:bg-focus hover:bg-blue-100 hover:text-black rounded-xl"
       >
         <div>{title}</div>
         {!isActive && <FontAwesomeIcon icon={faSortDown} />}
@@ -157,7 +184,7 @@ function Themenbereich({ title, area }: any) {
     <div>
       <div
         onClick={() => setIsActive(!isActive)}
-        className="flex gap-3 text-xl p-3 items-center cursor-pointer hover:bg-focus rounded-xl"
+        className="flex gap-3 text-xl p-3 ml-2 items-center cursor-pointer hover:dark:bg-focus hover:bg-blue-100 hover:text-black rounded-xl"
       >
         <div>{title}</div>
         {!isActive && <FontAwesomeIcon icon={faSortDown} />}
@@ -165,7 +192,7 @@ function Themenbereich({ title, area }: any) {
 
       {isActive &&
         themen?.docs.map((doc) => (
-          <div key={doc.id} className="text-lg p-1">
+          <div key={doc.id} className="text-lg p-1 ml-5">
             {currentTopic == doc?.id ? (
               <Link
                 href={`/themen/${doc.id}`}

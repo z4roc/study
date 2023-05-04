@@ -26,6 +26,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.8.0",
     "react-markdown": "^8.0.6",
     "rehype-highlight": "^6.0.0",
     "remark-gfm": "^3.0.1",
