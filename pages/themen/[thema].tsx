@@ -28,7 +28,7 @@ export default function Thema() {
           <div className="h-min overflow-y-auto w-full">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              className="flex flex-col p-20 max-h-9/10 markdown font-semibold"
+              className="flex flex-col p-4 md:p-20 max-h-9/10 markdown font-semibold"
               components={{
                 code({ node, inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
