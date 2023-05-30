@@ -42,12 +42,13 @@ export default function Thema() {
                   return !inline && match ? (
                     <SyntaxHighlighter
                       {...props}
-                      children={String(children).replace(/\n$/, "")}
                       style={atomOneDark}
                       language={match[1]}
                       PreTag="div"
                       showLineNumbers={true}
-                    />
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
                   ) : (
                     <code {...props} className={className}>
                       {children}
