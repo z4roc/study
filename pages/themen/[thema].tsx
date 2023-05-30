@@ -1,6 +1,5 @@
 import Navmenu, { Navbar } from "@/components/Navmenu";
 import { firestore } from "@/lib/firebase";
-import { useDarkMode, useLocalStorage } from "@/lib/hooks";
 import { doc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
@@ -8,13 +7,7 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { Toaster } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import {
-  atomOneDark,
-  atomOneLight,
-  docco,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import rehypeHighlight from "rehype-highlight/lib";
+import { atomOneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import remarkGfm from "remark-gfm";
 
 export default function Thema() {
