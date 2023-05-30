@@ -120,7 +120,10 @@ export default function Navmenu() {
 
 const ThemeIcon = () => {
   const [darkTheme, setDarkTheme] = useDarkMode();
-  const handleMode = () => setDarkTheme(!darkTheme);
+  const handleMode = () => {
+    setDarkTheme(!darkTheme);
+    localStorage.theme = darkTheme ? "dark" : "light";
+  };
 
   return (
     <span onClick={handleMode} className="ml-auto">

@@ -25,7 +25,7 @@ export default function useWindowDimensions() {
   return windowDimensions;
 }
 
-const useLocalStorage = (key: any, initialValue: any) => {
+export const useLocalStorage = (key: any, initialValue: any) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
